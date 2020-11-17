@@ -12,7 +12,7 @@ using api.Dto;
 namespace api.Controllers
 {
 	[ApiController]
-	[Route("direction")]
+	[Route("[controller]")]
 	public class DirectionController : ControllerBase
 	{
 		private readonly ILogger<DirectionController> _logger;
@@ -38,6 +38,7 @@ namespace api.Controllers
 				var directionsResponse = await task;
 			}
 			// TODO: convert Google Map API response
+            _logger.LogInformation("hello there!");
 			return new DirectionResponse { };
 		}
 
@@ -52,3 +53,4 @@ namespace api.Controllers
 			return await GoogleApi.GoogleMaps.Directions.QueryAsync(req);
 		}
 	}
+}
