@@ -23,22 +23,22 @@ namespace api.Controllers
 		}
 
 		[HttpGet]
-		public async Task<DirectionResponse> Get(string origin, string[] destinations, string sort, TravelMode travelMode)
+		public DirectionResponse Get()
 		{
 			// if (destinations.Length > 50) {
 			//     return BadRequest();
 			// }
 
-			var tasks = destinations.Select(destination => FetchDirectionsAsync(origin, destination, travelMode));
+			// var tasks = destinations.Select(destination => FetchDirectionsAsync(origin, destination, travelMode));
 
-			await Task.WhenAll(tasks);
+			// await Task.WhenAll(tasks);
 
-			foreach (var task in tasks)
-			{
-				var directionsResponse = await task;
-			}
-			// TODO: convert Google Map API response
-            _logger.LogInformation("hello there!");
+			// foreach (var task in tasks)
+			// {
+			// 	var directionsResponse = await task;
+			// }
+			// // TODO: convert Google Map API response
+            // _logger.LogInformation("hello there!");
 			return new DirectionResponse { };
 		}
 
