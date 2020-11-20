@@ -23,22 +23,28 @@ namespace api.Controllers
 		}
 
 		[HttpGet]
-		public DirectionResponse Get()
+		public async Task<ActionResult<DirectionResponse>> Get(string origin, [FromQuery(Name = "destinations")] string destStr, string sort = "", int travelMode = 1)
 		{
-			// if (destinations.Length > 50) {
-			//     return BadRequest();
-			// }
+			if (string.IsNullOrEmpty(origin) || string.IsNullOrEmpty(destStr))
+			{
+				return new BadRequestObjectResult("origin or destionations are empty");
+			}
+			var destinations = destStr.Split(",");
+			if (destinations.Length > 50)
+			{
+				return new BadRequestObjectResult("You cannot have more than 50 destinations");
+			}
 
-			// var tasks = destinations.Select(destination => FetchDirectionsAsync(origin, destination, travelMode));
+			var tasks = destinations.Select(destination => FetchDirectionsAsync(origin, destination, (TravelMode)travelMode));
 
-			// await Task.WhenAll(tasks);
+			await Task.WhenAll(tasks);
 
-			// foreach (var task in tasks)
-			// {
-			// 	var directionsResponse = await task;
-			// }
-			// // TODO: convert Google Map API response
-            // _logger.LogInformation("hello there!");
+			foreach (var task in tasks)
+			{
+				var directionsResponse = await task;
+			}
+			// TODO: convert Google Map API response
+			_logger.LogInformation("hello there!");
 			return new DirectionResponse { };
 		}
 
