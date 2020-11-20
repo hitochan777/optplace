@@ -2,7 +2,7 @@ namespace api.Dto
 {
 	public class DirectionResponse
 	{
-		DirectionInfo[] DirectionInfoList {get; set;}
+		DirectionInfo[] DirectionInfoList { get; set; }
 	}
 
 	public class DirectionInfo
