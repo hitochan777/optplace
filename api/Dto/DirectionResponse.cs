@@ -1,14 +1,16 @@
+using System.Collections.Generic;
+
 namespace api.Dto
 {
 	public class DirectionResponse
 	{
-		DirectionInfo[] DirectionInfoList { get; set; }
+		public List<DirectionInfo> DirectionInfoList { get; set; }
 	}
 
 	public class DirectionInfo
 	{
-		string Location { get; set; }
-		int Cost { get; set; }
-		int Distance { get; set; }
+		public string Location { get; set; }
+		public int Cost { get; set; }
+		public int Distance { get; set; }
 	}
 }

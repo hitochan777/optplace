@@ -1,4 +1,6 @@
 using System.Linq;
+using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -15,15 +17,23 @@ namespace api.Controllers
 	[Route("[controller]")]
 	public class DirectionController : ControllerBase
 	{
-		private readonly ILogger<DirectionController> _logger;
+		private readonly IConfiguration configuration;
+		private readonly ILogger<DirectionController> logger;
+		private readonly string apiKey;
 
-		public DirectionController(ILogger<DirectionController> logger)
+		public DirectionController(ILogger<DirectionController> logger, IConfiguration configuration)
 		{
-			_logger = logger;
+			this.logger = logger;
+			this.configuration = configuration;
+			apiKey = configuration["GOOGLE_MAP_API_KEY"];
+			if (string.IsNullOrEmpty(apiKey))
+			{
+				throw new System.Exception("api key is empty");
+			}
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<DirectionResponse>> Get(string origin, [FromQuery(Name = "destinations")] string destStr, string sort = "", int travelMode = 1)
+		public async Task<ActionResult<DirectionsResponse[]>> Get(string origin, [FromQuery(Name = "destinations")] string destStr, string sort = "", int travelMode = 1)
 		{
 			if (string.IsNullOrEmpty(origin) || string.IsNullOrEmpty(destStr))
 			{
@@ -37,21 +47,25 @@ namespace api.Controllers
 
 			var tasks = destinations.Select(destination => FetchDirectionsAsync(origin, destination, (TravelMode)travelMode));
 
-			await Task.WhenAll(tasks);
+			var directionResponses = await Task.WhenAll(tasks);
 
-			foreach (var task in tasks)
-			{
-				var directionsResponse = await task;
-			}
+			return directionResponses;
+
+
 			// TODO: convert Google Map API response
-			_logger.LogInformation("hello there!");
-			return new DirectionResponse { };
+			// return new DirectionResponse { 
+			//     DirectionInfoList = directionResponses.Select(directionResponses => new DirectionInfo {                        
+			//         Locato 
+			//     })
+
 		}
 
 		private async Task<DirectionsResponse> FetchDirectionsAsync(string origin, string destination, TravelMode travelMode)
 		{
+			logger.LogInformation(apiKey);
 			var req = new DirectionsRequest
 			{
+				Key = apiKey,
 				Origin = new Location(origin),
 				Destination = new Location(destination),
 				TravelMode = travelMode,
