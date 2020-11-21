@@ -9,6 +9,8 @@ using GoogleApi.Entities.Maps.Common.Enums;
 using GoogleApi.Entities.Maps.Directions.Request;
 using GoogleApi.Entities.Maps.Directions.Response;
 
+using api.Extensions;
+
 using api.Dto;
 
 namespace api.Controllers
@@ -33,7 +35,7 @@ namespace api.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<DirectionsResponse[]>> Get(string origin, [FromQuery(Name = "destinations")] string destStr, string sort = "", int travelMode = 1)
+		public async Task<ActionResult<DirectionInfo[]>> Get(string origin, [FromQuery(Name = "destinations")] string destStr, int travelMode = 1)
 		{
 			if (string.IsNullOrEmpty(origin) || string.IsNullOrEmpty(destStr))
 			{
@@ -45,24 +47,18 @@ namespace api.Controllers
 				return new BadRequestObjectResult("You cannot have more than 50 destinations");
 			}
 
-			var tasks = destinations.Select(destination => FetchDirectionsAsync(origin, destination, (TravelMode)travelMode));
+			var tasks = destinations.Select(async destination =>
+			{
+				var directionResponse = await FetchDirectionsAsync(origin, destination, (TravelMode)travelMode);
+				return directionResponse.GetDirectionInfoList(destination).FirstOrDefault();
+			});
 
-			var directionResponses = await Task.WhenAll(tasks);
-
-			return directionResponses;
-
-
-			// TODO: convert Google Map API response
-			// return new DirectionResponse { 
-			//     DirectionInfoList = directionResponses.Select(directionResponses => new DirectionInfo {                        
-			//         Locato 
-			//     })
-
+			var directionInfoList = await Task.WhenAll(tasks);
+			return directionInfoList.Where(directionInfo => directionInfo != null).ToArray();
 		}
 
 		private async Task<DirectionsResponse> FetchDirectionsAsync(string origin, string destination, TravelMode travelMode)
 		{
-			logger.LogInformation(apiKey);
 			var req = new DirectionsRequest
 			{
 				Key = apiKey,

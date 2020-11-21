@@ -9,8 +9,9 @@ namespace api.Dto
 
 	public class DirectionInfo
 	{
-		public string Location { get; set; }
-		public int Cost { get; set; }
-		public int Distance { get; set; }
+		public string DestinationName { get; set; }
+		public string DestinationAddress { get; set; }
+		public double Cost { get; set; }
+		public int Duration { get; set; }
 	}
 }
