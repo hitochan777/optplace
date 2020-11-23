@@ -30,18 +30,22 @@ export const SearchForm: React.FC<Props> = ({ onSubmit }) => {
       }}
     >
       <Form>
-        <div>
-          <label htmlFor="origin">Source</label>
-          <Field name="origin" type="text" />
-          <ErrorMessage name="origin" />
+        <div className="form-control">
+          <div className="flex items-center space-between">
+            <label htmlFor="origin">Source</label>
+            <ErrorMessage name="origin" />
+          </div>
+          <Field className="width-100 round-border" name="origin" type="text" />
         </div>
 
-        <div>
-          <label htmlFor="destinations">
-            Destinations (Separated by newlines)
-          </label>
-          <Field name="destinations" as="textarea" />
-          <ErrorMessage name="destinations" />
+        <div className="form-control">
+          <div className="flex items-center space-between">
+            <label htmlFor="destinations">
+              Destinations
+            </label>
+            <ErrorMessage name="destinations" />
+          </div>
+          <Field className="width-100 round-border" name="destinations" as="textarea" />
         </div>
         <button type="submit">Search</button>
       </Form>
