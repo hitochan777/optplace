@@ -28,6 +28,10 @@ a {
   justify-content: space-between;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
 .round-border {
   border-radius: 2px;
 }
@@ -40,12 +44,29 @@ a {
   width: 100%;
 }
 
-button[type="submit"] {
+button {
+  padding: 0.5rem 1.25rem;
+  border-color: transparent;
+  font-size: 1rem;
   border-radius: 2px;
   font-weight: bold;
+}
+
+input {
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 1.5rem;
+}
+
+button:focus{
+  border-color: transparent;
+}
+
+button[type="submit"] {
   color: white;
   background-color: grey;
-  font-size: 1rem;
-  padding: 0.5rem 1.25rem;
-  border-color: none;
+}
+
+.red {
+  color: red;
 }

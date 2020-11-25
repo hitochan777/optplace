@@ -33,7 +33,7 @@ export const SearchForm: React.FC<Props> = ({ onSubmit }) => {
         <div className="form-control">
           <div className="flex items-center space-between">
             <label htmlFor="origin">Source</label>
-            <ErrorMessage name="origin" />
+            <ErrorMessage name="origin">{(errorMessage) => <span className="red">{errorMessage}</span>}</ErrorMessage>
           </div>
           <Field className="width-100 round-border" name="origin" type="text" />
         </div>
@@ -43,11 +43,13 @@ export const SearchForm: React.FC<Props> = ({ onSubmit }) => {
             <label htmlFor="destinations">
               Destinations
             </label>
-            <ErrorMessage name="destinations" />
+            <ErrorMessage name="destinations">{(errorMessage) => <span className="red">{errorMessage}</span>}</ErrorMessage>
           </div>
           <Field className="width-100 round-border" name="destinations" as="textarea" />
         </div>
-        <button type="submit">Search</button>
+        <div className="flex justify-center">
+          <button type="submit">Search</button>
+        </div>
       </Form>
     </Formik>
   );
