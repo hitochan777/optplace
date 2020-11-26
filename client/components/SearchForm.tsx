@@ -31,14 +31,14 @@ export const SearchForm: React.FC<Props> = ({ onSubmit }) => {
     >
       <Form>
         <div className="form-control">
-          <div className="flex items-center space-between">
+          <div className="flex items-center flex-end">
             <ErrorMessage name="origin">{(errorMessage) => <span className="red">{errorMessage}</span>}</ErrorMessage>
           </div>
           <Field className="width-100 round-border" name="origin" type="text" placeholder="Departing from"/>
         </div>
 
         <div className="form-control">
-          <div className="flex items-center space-between">
+          <div className="flex items-center flex-end">
             <ErrorMessage name="destinations">{(errorMessage) => <span className="red">{errorMessage}</span>}</ErrorMessage>
           </div>
           <Field className="width-100 round-border" name="destinations" as="textarea" placeholder="Destinations"/>
