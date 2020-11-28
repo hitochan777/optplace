@@ -6,9 +6,10 @@ import { ErrorMessage } from "./ErrorMessage";
 
 interface Props {
   onSubmit: (origin: string, destionations: string[]) => Promise<void>;
+  isLoading: boolean;
 }
 
-export const SearchForm: React.FC<Props> = ({ onSubmit }) => {
+export const SearchForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
   return (
     <Formik
       initialValues={{ origin: "", destinations: "" }}
@@ -51,7 +52,7 @@ export const SearchForm: React.FC<Props> = ({ onSubmit }) => {
           />
         </div>
         <div className="flex justify-center">
-          <button type="submit">Search</button>
+          <button type="submit" disabled={isLoading}>{isLoading ? "Searching..." : "Search" }</button>
         </div>
       </Form>
     </Formik>

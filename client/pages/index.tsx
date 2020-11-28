@@ -5,7 +5,7 @@ import { SearchForm } from "../components/SearchForm";
 import { useSearchDirections } from "../hooks/use_search_directions";
 
 export default function Home() {
-  const [directions, searchDirections] = useSearchDirections();
+  const [directions, searchDirections, isLoading] = useSearchDirections();
 
   return (
     <div className={styles.container}>
@@ -22,7 +22,7 @@ export default function Home() {
             </li>
           ))}
         </ul>
-        <SearchForm onSubmit={searchDirections}/>
+        <SearchForm onSubmit={searchDirections} isLoading={isLoading} />
       </main>
 
       <footer className={styles.footer}>Made by hitochan777 with love</footer>
