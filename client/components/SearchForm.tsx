@@ -4,11 +4,6 @@ import * as Yup from "yup";
 
 import { ErrorMessage } from "./ErrorMessage";
 
-interface FormType {
-  origin: string;
-  destinations: string;
-}
-
 interface Props {
   onSubmit: (origin: string, destionations: string[]) => Promise<void>;
 }
