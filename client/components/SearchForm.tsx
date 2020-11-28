@@ -48,7 +48,8 @@ export const SearchForm: React.FC<Props> = ({ onSubmit, isLoading }) => {
             className="width-100 round-border"
             name="destinations"
             as="textarea"
-            placeholder="Destinations"
+            rows={10}
+            placeholder={"Destination A\nDestination B\nDestination C"}
           />
         </div>
         <div className="flex justify-center">
