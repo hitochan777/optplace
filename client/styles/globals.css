@@ -28,6 +28,7 @@ a {
 
 .flex {
   display: flex;
+  gap: 12px;
 }
 
 .space-between {
