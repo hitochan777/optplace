@@ -12,7 +12,7 @@ async function getDirections(
 ): Promise<Response> {
   const origin = e.queryString["origin"];
   const destinationsString = e.queryString["destinations"];
-  if (origin === "" || destinationsString === "") {
+  if (!origin || !destinationsString) {
     return {
       body: "Origin or destinations field are empty",
       status: 400,
