@@ -38,6 +38,6 @@ export async function doGet(e: GoogleAppsScript.Events.DoGet) {
   const result = await getDirections(e, directionFinder);
   const stringifiedResult = JSON.stringify(result);
   return ContentService.createTextOutput(stringifiedResult).setMimeType(
-    GoogleAppsScript.Content.MimeType.JSON
+    ContentService.MimeType.JSON
   );
 }
