@@ -6,10 +6,10 @@ interface Response {
   status: number;
 }
 
-async function getDirections(
+function getDirections(
   e: GoogleAppsScript.Events.DoGet,
   directionFinder: DirectionFindService
-): Promise<Response> {
+): Response {
   const origin = e.queryString["origin"];
   const destinationsString = e.queryString["destinations"];
   if (!origin || !destinationsString) {
@@ -25,7 +25,10 @@ async function getDirections(
       status: 400,
     };
   }
-  const directions = await directionFinder.FindDirections(origin, destinations);
+  const directions = directionFinder.FindDirections(origin, destinations);
+  if (directions instanceof Promise) {
+    throw new Error("promise is not returnable from doGet");
+  }
 
   return {
     body: directions,
@@ -33,9 +36,9 @@ async function getDirections(
   };
 }
 
-export async function doGet(e: GoogleAppsScript.Events.DoGet) {
+function doGet(e: GoogleAppsScript.Events.DoGet) {
   const directionFinder = new GoogleDirectionFinder();
-  const result = await getDirections(e, directionFinder);
+  const result = getDirections(e, directionFinder);
   const stringifiedResult = JSON.stringify(result);
   return ContentService.createTextOutput(stringifiedResult).setMimeType(
     ContentService.MimeType.JSON

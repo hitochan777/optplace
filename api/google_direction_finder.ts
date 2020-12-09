@@ -20,10 +20,10 @@ export class GoogleDirectionFinder implements DirectionFindService {
       cost: totalCost,
     };
   }
-  public async FindDirections(
+  public FindDirections(
     origin: string,
     destinations: string[]
-  ): Promise<DirectionInfo[]> {
+  ): DirectionInfo[] {
     const directionInfoList = destinations.map((destination) => {
       const directions = Maps.newDirectionFinder()
         .setOrigin(origin)
