@@ -10,11 +10,11 @@ function getDirections(
   e: GoogleAppsScript.Events.DoGet,
   directionFinder: DirectionFindService
 ): Response {
-  const origin = e.queryString["origin"];
-  const destinationsString = e.queryString["destinations"];
+  const origin = e.parameter["origin"];
+  const destinationsString = e.parameter["destinations"];
   if (!origin || !destinationsString) {
     return {
-      body: "Origin or destinations field are empty",
+      body: `Origin or destinations field are empty: ${JSON.stringify(e.parameter)}`,
       status: 400,
     };
   }

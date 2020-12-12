@@ -2,7 +2,7 @@ import { DirectionFindService } from "./direction_find_service";
 import { DirectionInfo } from "./direction_info";
 
 export class GoogleDirectionFinder implements DirectionFindService {
-  private directionResponse2DirectionInfo(directions: any): DirectionInfo {
+  private directionResponse2DirectionInfo(destination: string, directions: any): DirectionInfo {
     const totalCost = directions.routes.reduce(
       (total, route) => (route.fare ? route.fare.value : 0) + total,
       0
@@ -10,12 +10,12 @@ export class GoogleDirectionFinder implements DirectionFindService {
     const durations = directions.routes.flatMap((route) =>
       route.legs.map((leg) => (leg.duration ? leg.duration.value : 0))
     );
-    const totalDuration = durations.reeduce(
+    const totalDuration = durations.reduce(
       (total, duration) => duration + total,
       0
     );
     return {
-      destination: "",
+      destination,
       duration: totalDuration,
       cost: totalCost,
     };
@@ -28,9 +28,9 @@ export class GoogleDirectionFinder implements DirectionFindService {
       const directions = Maps.newDirectionFinder()
         .setOrigin(origin)
         .setDestination(destination)
-        .setMode(GoogleAppsScript.Maps.Mode.TRANSIT)
+        .setMode(Maps.DirectionFinder.Mode.TRANSIT)
         .getDirections();
-      return this.directionResponse2DirectionInfo(directions);
+      return this.directionResponse2DirectionInfo(destination, directions);
     });
     return directionInfoList;
   }
