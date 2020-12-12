@@ -13,7 +13,9 @@ export const useSearchDirections = () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `https://${process.env.API_ENDPOINT}/Directions?origin=${origin}&destinations=${destinations.join(",")}`
+        `${
+          process.env.API_ENDPOINT
+        }/?origin=${origin}&destinations=${destinations.join(",")}`
       );
       const jsonResponse = await response.json();
       setDirections(jsonResponse);
