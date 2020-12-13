@@ -19,9 +19,9 @@ export default function Home() {
         <table>
           <thead>
             <tr>
-              <th>Destination</th>
-              <th>Cost</th>
-              <th>Duration (min)</th>
+              <th>目的地</th>
+              <th>費用</th>
+              <th>所要時間 (分)</th>
             </tr>
           </thead>
           <tbody>
