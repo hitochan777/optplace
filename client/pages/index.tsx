@@ -3,9 +3,27 @@ import styles from "../styles/Home.module.css";
 
 import { SearchForm } from "../components/SearchForm";
 import { useSearchDirections } from "../hooks/use_search_directions";
+import { useMemo, useState } from "react";
+
+enum SortBy {
+  Cost,
+  Duration,
+}
 
 export default function Home() {
+  const [sortBy, setSortBy] = useState(SortBy.Cost);
   const [directions, searchDirections, isLoading] = useSearchDirections();
+  const sortedDirections = useMemo(() => {
+    const copiedDirections = [...directions];
+    copiedDirections.sort((a, b) => {
+      if (sortBy === SortBy.Cost) {
+        return a.cost - b.cost;
+      } else if (sortBy === SortBy.Duration) {
+        return a.duration - b.duration;
+      }
+    });
+    return copiedDirections;
+  }, [directions]);
 
   return (
     <div className={styles.container}>
@@ -20,12 +38,26 @@ export default function Home() {
           <thead>
             <tr>
               <th>目的地</th>
-              <th>費用</th>
-              <th>所要時間 (分)</th>
+              <th
+                className="clickable"
+                onClick={() => {
+                  setSortBy(SortBy.Cost);
+                }}
+              >
+                費用 {sortBy === SortBy.Cost && "^"}
+              </th>
+              <th
+                className="clickable"
+                onClick={() => {
+                  setSortBy(SortBy.Duration);
+                }}
+              >
+                所要時間 (分) {sortBy === SortBy.Duration && "^"}
+              </th>
             </tr>
           </thead>
           <tbody>
-            {directions.map((direction) => (
+            {sortedDirections.map((direction) => (
               <tr>
                 <td>{direction.destination}</td>
                 <td>{direction.cost}</td>

@@ -31,6 +31,10 @@ a {
   gap: 12px;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .space-between {
   justify-content: space-between;
 }
