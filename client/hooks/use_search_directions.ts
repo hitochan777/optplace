@@ -1,6 +1,8 @@
+import { redirect } from "next/dist/next-server/server/api-utils";
 import { useState } from "react";
 
 interface Direction {
+  destination: string;
   cost: number;
   duration: number;
 }
@@ -14,12 +16,17 @@ export const useSearchDirections = () => {
       setIsLoading(true);
       const response = await fetch(
         `${
-          process.env.API_ENDPOINT
-        }/?origin=${origin}&destinations=${destinations.join(",")}`
+          process.env.NEXT_PUBLIC_API_ENDPOINT
+        }?origin=${origin}&destinations=${destinations.join(",")}`,
       );
+
       const jsonResponse = await response.json();
-      setDirections(jsonResponse);
-    } catch {
+      setDirections(jsonResponse.body);
+    } 
+    catch (error)  {
+      console.error(error);
+    }
+    finally{
       setIsLoading(false);
     }
   };

@@ -15,14 +15,25 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <ul>
-          {directions.map((direction) => (
-            <li>
-              cost: {direction.cost}, duration: {direction.duration}
-            </li>
-          ))}
-        </ul>
         <SearchForm onSubmit={searchDirections} isLoading={isLoading} />
+        <table>
+          <thead>
+            <tr>
+              <th>Destination</th>
+              <th>Cost</th>
+              <th>Duration (min)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {directions.map((direction) => (
+              <tr>
+                <td>{direction.destination}</td>
+                <td>{direction.cost}</td>
+                <td>{Math.round(direction.duration / 60)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </main>
 
       <footer className={styles.footer}>Made by hitochan777 with love</footer>
