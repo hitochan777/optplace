@@ -60,8 +60,12 @@ export default function Home() {
 						{sortedDirections.map((direction, i) => (
 							<tr key={i}>
 								<td>{direction.destination}</td>
-								<td>{direction.cost}</td>
-								<td>{Math.round(direction.duration / 60)}</td>
+								<td>{direction.cost ?? "見つかりませんでした"}</td>
+								<td>
+									{direction.duration
+										? Math.round(direction.duration / 60)
+										: "見つかりませんでした"}
+								</td>
 							</tr>
 						))}
 					</tbody>
