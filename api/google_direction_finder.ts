@@ -10,7 +10,7 @@ export class GoogleDirectionFinder implements DirectionFindService {
 		const durations = directions.routes[0]?.legs.map((leg: any) =>
 			leg.duration ? leg.duration.value : 0
 		);
-		const totalDuration = durations.reduce(
+		const totalDuration = durations?.reduce(
 			(total: number, duration: number) => duration + total,
 			0
 		);
