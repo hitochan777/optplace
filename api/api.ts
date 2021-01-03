@@ -6,12 +6,11 @@ interface Response {
 	status: number;
 }
 
-function getDirections(
-	e: GoogleAppsScript.Events.DoGet,
+function _getDirections(
+	origin: string,
+	destinationsString: string,
 	directionFinder: DirectionFindService
 ): Response {
-	const origin = e.parameter["origin"];
-	const destinationsString = e.parameter["destinations"];
 	if (!origin || !destinationsString) {
 		return {
 			body: `Origin or destinations field are empty: ${JSON.stringify(
@@ -38,22 +37,7 @@ function getDirections(
 	};
 }
 
-function doGet(e: GoogleAppsScript.Events.DoGet) {
+function getDirections(origin: string, destinations: string) {
 	const directionFinder = new GoogleDirectionFinder();
-	const result = getDirections(e, directionFinder);
-	const stringifiedResult = JSON.stringify(result);
-	return ContentService.createTextOutput(stringifiedResult).setMimeType(
-		ContentService.MimeType.JSON
-	);
-}
-
-function doTest() {
-	const req = {
-		parameter: {
-			origin: "osaka",
-			destinations: "tokyo,nagoya"
-		}
-	};
-	const result = doGet(req as any);
-	Logger.log(result.getContent());
+	return _getDirections(origin, destinations, directionFinder);
 }
