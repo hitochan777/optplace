@@ -23,7 +23,6 @@ a {
 
 .form-control {
   margin-bottom: 20px;
-  width: 300px;
 }
 
 .flex {
@@ -65,10 +64,28 @@ button {
   font-size: 1rem;
   border-radius: 2px;
   font-weight: bold;
+  width: 50%;
+}
+
+.submit-button {
+  color: black;
+  background-color: lightskyblue;
+  transition: 0.3s;
+}
+
+.submit-button:hover, .submit-button:focus {
+  color: white;
+  background-color: blue;
 }
 
 input {
-  height: 2rem;
+  font-size: 1rem;
+  height: 3rem;
+  line-height: 2rem;
+}
+
+textarea {
+  font-size: 1rem;
   line-height: 2rem;
 }
 
@@ -76,28 +93,36 @@ button:focus{
   border-color: transparent;
 }
 
-button[type="submit"] {
-  color: white;
-  background-color: grey;
-}
-
 .red {
   color: red;
 }
 
-.fade-enter{
-   opacity: 0;
+.well {
+  padding: 1rem 1rem;
+  background-color: lightgrey;
+  border-radius: 10px;
+  margin-bottom: 3rem;
 }
-.fade-exit{
-   opacity: 1;
+
+.action_link {
+  cursor: pointer;
 }
-.fade-enter-active{
-   opacity: 1;
+
+.search_result {
+  margin-top: 2rem; 
+  border-collapse: collapse;
+  border: 1px solid black;
 }
-.fade-exit-active{
-   opacity: 0;
+
+.search_result tr {
+  height: 3rem;
+  border: 1px solid black;
 }
-.fade-enter-active,
-.fade-exit-active{
-   transition: opacity 500ms;
+
+.search_result td {
+  border: 1px solid black;
+}
+
+.search_result th {
+  border: 1px solid black;
 }

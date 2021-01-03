@@ -1,4 +1,3 @@
-import { redirect } from "next/dist/next-server/server/api-utils";
 import { useState } from "react";
 
 interface Direction {
@@ -7,26 +6,29 @@ interface Direction {
   duration: number;
 }
 
-export const useSearchDirections = () => {
+export const useSearchDirections = (accessToken?: string) => {
   const [directions, setDirections] = useState<Direction[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const searchDirections = async (origin: string, destinations: string[]) => {
     try {
       setIsLoading(true);
-      const response = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_API_ENDPOINT
-        }?origin=${origin}&destinations=${destinations.join(",")}`,
-      );
+      const response = await fetch(process.env.NEXT_PUBLIC_API_ENDPOINT, {
+        method: "POST",
+        body: JSON.stringify({
+          function: "getDirections",
+          parameters: [origin, destinations.join(",")],
+        }),
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
 
       const jsonResponse = await response.json();
-      setDirections(jsonResponse.body);
-    } 
-    catch (error)  {
+      setDirections(jsonResponse.response.result.body);
+    } catch (error) {
       console.error(error);
-    }
-    finally{
+    } finally {
       setIsLoading(false);
     }
   };
