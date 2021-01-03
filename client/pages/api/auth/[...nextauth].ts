@@ -9,9 +9,6 @@ const options: InitOptions = {
       clientSecret: process.env.GOOGLE_SECRET,
     }),
   ],
-  pages: {
-    signIn: "/auth/signin",
-  },
   session: {
     jwt: true,
   },
