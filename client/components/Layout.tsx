@@ -10,9 +10,13 @@ interface Props {
 const Layout: React.FC<Props> = ({ title = "", children }) => (
   <>
     <Head>
-      <title>Optplace {title}</title>
+      <title>{title || "Optplace | 近くて安い目的地を探そう"}</title>
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      <meta
+        name="description"
+        content="目的地の候補がたくさんあってどれがいいかわからない...Optplaceなら安くて近い目的地を簡単に見つけられます！"
+      />
     </Head>
     <header>
       <Navbar />
