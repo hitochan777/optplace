@@ -4,7 +4,7 @@ import { SearchForm } from "../components/SearchForm";
 import { useSearchDirections } from "../hooks/use_search_directions";
 import { useMemo, useState } from "react";
 import { GetServerSideProps, NextPage } from "next";
-import { getSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
 
 enum SortBy {
   Cost,
@@ -12,9 +12,12 @@ enum SortBy {
 }
 
 const Home: NextPage = () => {
+  const [session] = useSession();
   const [searched, setSearched] = useState(false);
   const [sortBy, setSortBy] = useState(SortBy.Cost);
-  const [directions, searchDirections, isLoading] = useSearchDirections();
+  const [directions, searchDirections, isLoading] = useSearchDirections(
+    session?.accessToken
+  );
   const sortedDirections = useMemo(() => {
     const copiedDirections = [...directions];
     copiedDirections.sort((a, b) => {

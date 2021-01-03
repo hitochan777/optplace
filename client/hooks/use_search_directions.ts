@@ -7,7 +7,7 @@ interface Direction {
   duration: number;
 }
 
-export const useSearchDirections = () => {
+export const useSearchDirections = (accessToken?: string) => {
   const [directions, setDirections] = useState<Direction[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -18,6 +18,11 @@ export const useSearchDirections = () => {
         `${
           process.env.NEXT_PUBLIC_API_ENDPOINT
         }?origin=${origin}&destinations=${destinations.join(",")}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
       );
 
       const jsonResponse = await response.json();
