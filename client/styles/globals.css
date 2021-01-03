@@ -107,3 +107,22 @@ button:focus{
 .action_link {
   cursor: pointer;
 }
+
+.search_result {
+  margin-top: 2rem; 
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+.search_result tr {
+  height: 3rem;
+  border: 1px solid black;
+}
+
+.search_result td {
+  border: 1px solid black;
+}
+
+.search_result th {
+  border: 1px solid black;
+}

@@ -17,7 +17,7 @@ const Navbar = () => {
           <div>
             <span className={styles.navbar__item}>{session.user.email}</span>
             <a onClick={() => signOut()} className={`${styles.navbar__item} action_link`}>
-              Signout
+              ログアウト
             </a>
           </div>
         )}
