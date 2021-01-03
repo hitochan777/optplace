@@ -8,8 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@types/next-auth": "^3.1.19",
     "formik": "^2.2.5",
     "next": "10.0.2",
+    "next-auth": "^3.1.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-transition-group": "^4.4.1",
