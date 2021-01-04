@@ -17,6 +17,7 @@ const Layout: React.FC<Props> = ({ title = "", children }) => (
         name="description"
         content="目的地の候補がたくさんあってどれがいいかわからない...Optplaceなら安くて近い目的地を簡単に見つけられます！"
       />
+      <meta name="google-site-verification" content="PRfrFELJZN8wnHVlWLo8WtGQs6iLOUfuxrg9Vq7VyX8" />
     </Head>
     <header>
       <Navbar />
