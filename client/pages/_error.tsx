@@ -1,25 +1,14 @@
 import React from "react";
-import { GetServerSideProps, NextPage } from "next";
-import { session, getSession, providers } from "next-auth/client";
+import { NextPage } from "next";
 
-import SignInForm from "../components/SignInForm";
+import Layout from "../components/Layout";
 
-interface Props {
-  providers: any;
-}
-
-const Error: NextPage<Props> = ({ providers }) => {
+const Error: NextPage = () => {
   return (
-    <p>
-      エラーが発生しました。ログアウト後、再度ログインしてください。
-      {!session && <SignInForm providers={providers} />}
-    </p>
+    <Layout>
+      <p>エラーが発生しました。ログアウト後、再度ログインしてください。</p>
+    </Layout>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
-  return { props: { session, providers: await providers() } };
 };
 
 export default Error;
