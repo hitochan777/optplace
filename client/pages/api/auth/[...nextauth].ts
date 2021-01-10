@@ -1,6 +1,5 @@
 import NextAuth, { InitOptions } from "next-auth";
 import Providers from "next-auth/providers";
-import { userInfo } from "os";
 
 const options: InitOptions = {
   providers: [

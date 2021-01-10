@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { UnauthorizedError } from "../errors";
 
 interface Direction {
   destination: string;
@@ -23,11 +24,15 @@ export const useSearchDirections = (accessToken?: string) => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-
+      if (response.status == 200) {
+        setDirections(() => {
+          throw new UnauthorizedError(
+            "認証がきれました。再度ログインしてください。"
+          );
+        });
+      }
       const jsonResponse = await response.json();
       setDirections(jsonResponse.response.result.body);
-    } catch (error) {
-      console.error(error);
     } finally {
       setIsLoading(false);
     }
