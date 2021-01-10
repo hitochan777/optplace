@@ -24,7 +24,7 @@ export const useSearchDirections = (accessToken?: string) => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      if (response.status == 200) {
+      if (response.status === 401) {
         setDirections(() => {
           throw new UnauthorizedError(
             "認証がきれました。再度ログインしてください。"
