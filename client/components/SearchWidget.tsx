@@ -26,7 +26,7 @@ const SearchWidget: React.FC = () => {
       }
     });
     return copiedDirections;
-  }, [directions]);
+  }, [directions, sortBy]);
   return (
     <>
       <SearchForm
